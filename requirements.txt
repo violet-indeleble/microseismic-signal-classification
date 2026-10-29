@@ -1,0 +1,7 @@
+tensorflow==2.17.0
+keras==3.10.0
+numpy==1.26.4
+scipy==1.13.1
+h5py==3.14.0
+scikit-learn>=1.3,<2
+matplotlib>=3.7,<4
