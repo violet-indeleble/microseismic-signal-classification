@@ -4,9 +4,9 @@
 
 ## 公开范围与运行限制
 
-本仓库是部分源代码发布。自定义网络层模块 **`Class/CLASS.py` 暂未公开**，`NetWork/microseismic_model.py` 依赖该模块，因此当前公开版本不能独立构建模型或完成训练。具备该模块的使用者可将其放入 `Class/CLASS.py` 后使用训练入口。该文件已加入忽略规则。
+本仓库公开当前分类模型的训练入口、网络结构、自定义层、数据读取、评估与预处理代码，包括 `Class/CLASS.py`。训练需要自行准备符合格式的 H5 数据并安装依赖。
 
-不包含训练权重、训练数据、原始样本、实验输出、历史版本、Grad-CAM 可视化脚本、预警平台或降噪模型。数据预处理脚本可独立于未公开的网络层模块运行。
+不包含训练权重、训练数据、原始样本、实验输出、历史版本、Grad-CAM 可视化脚本、预警平台或降噪模型。数据预处理脚本可独立运行。
 
 ## 文件说明
 
@@ -14,6 +14,7 @@
 | --- | --- |
 | `classify_V4.py` | 训练入口、训练参数及数据集划分配置 |
 | `NetWork/microseismic_model.py` | 双分支网络结构 |
+| `Class/CLASS.py` | 自定义注意力层、多尺度卷积及特征融合模块 |
 | `LoadData/h5_data.py` | H5 数据读取、划分与 TensorFlow 数据管道 |
 | `Chart/chart.py` | 训练监控、评估和结果绘图 |
 | `ST_1.3.py` | TXT 波形预处理、S 变换与 H5 生成 |
@@ -26,7 +27,7 @@
 python -m pip install -r requirements.txt
 ```
 
-依赖安装并不补齐未公开的 `Class/CLASS.py`。
+自定义网络层已随仓库提供。
 
 ## 数据预处理
 
@@ -40,9 +41,9 @@ CLASSIFY_INPUT_DIR=data/raw/noise CLASSIFY_PREPROCESS_OUTPUT_DIR=data/processed/
 
 默认处理 `data/raw/noise`，输出至 `data/processed/noise`。类别标注方式及其他处理选项见脚本；处理其他类别时请检查标注结果。
 
-## 训练（需要未公开模块）
+## 训练
 
-补齐 `Class/CLASS.py` 并准备 H5 数据后：
+准备 H5 数据后：
 
 ```bash
 CLASSIFY_DATA_DIR=data/processed CLASSIFY_OUTPUT_DIR=. python classify_V4.py
@@ -52,4 +53,4 @@ CLASSIFY_DATA_DIR=data/processed CLASSIFY_OUTPUT_DIR=. python classify_V4.py
 
 ## 发布说明
 
-从当前研究目录选择最新模块建立独立仓库；仅将个人绝对路径替换为环境变量配置并添加标准包初始化文件，保留原模型计算和训练逻辑。发布检查包括 Python 语法及文件范围检查；因自定义层未公开，未声称本仓库可独立完成训练或复现实验结果。
+从当前研究目录选择最新模块建立独立仓库；仅将个人绝对路径替换为环境变量配置并添加标准包初始化文件，保留原模型计算和训练逻辑。发布检查包括 Python 语法及文件范围检查；本次发布未执行完整训练，不代表已复现实验结果。

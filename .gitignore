@@ -12,5 +12,4 @@ outputs/
 *.hdf5
 *.weights.*
 *.log
-Class/CLASS.py
 Visualize/
